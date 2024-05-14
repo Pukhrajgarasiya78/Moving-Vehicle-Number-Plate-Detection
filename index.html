@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Number Plate Detection</title>
+    <style>
+
+        .centered {
+            position: relative;
+            text-align: center;
+            display: grid;
+            place-items: center;
+            color: white;
+        }
+        
+        h1 {
+            color: #0c387c;
+            position: relative;
+            display: flex;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: -1px;
+            line-height: 1;
+            text-align: center;
+            margin-left: 423px;
+            margin-bottom: 12px;
+            top: -6vh;
+            left:-5vw;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+            font-size: 62.5%;
+        }
+        
+        body {
+            height: 90vh;
+            width: 90vw;
+            overflow: hidden;
+        }
+        
+        .main {
+            width: 100vw;
+            height: 100vh;
+            background-color: #28559A;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #up_section {
+            margin-bottom: 28px;
+            position: relative;
+            width: 86vw;
+            left: -22px;
+            top: 4px;
+            background-color: #3094c6;
+        }
+        
+        section {
+            position: relative;
+            padding: 0 5rem;
+            width: 1400px;
+            max-width: 90%;
+            height: 90%;
+            margin: auto;
+            border-radius: 0px;
+            background: #2b4460;
+            box-shadow: 20px -20px 40px #2f8a9f,
+                -20px 20px 40px #352323;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 114px;
+        }
+        
+        #colLog {
+            background: transparent;
+            position: absolute;
+            top: -5px;
+            width: 15vw;
+            height: 13vh;
+            left: 5vw;
+        }
+        
+        .navbar .logo {
+            text-decoration: none;
+            text-decoration: none;
+            display: flex;
+            position: absolute;
+            color: #3d454e;
+            font-weight: 600;
+            font-size: 2.5rem;
+            width: 21vw;
+            top: 13vh;
+            left: 0.7vw;
+            font-size: 20px;
+        }
+        span {
+            color: #3d454e;
+            position: absolute;
+            top: 122%;
+            left: 2vw;
+            margin-top: -1vh;
+        }
+        
+        .navbar ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            height: 10vh;
+            width: 82vw;
+            gap: 56px;
+            margin-top: -57px;
+        }
+        
+        .navbar ul li a {
+            text-decoration: none;
+            color: #f2e9e4;
+            font-size: 1.8rem;
+            font-weight: 600;
+            transition: 0.4s;
+        }
+        
+        .navbar ul li .active {
+            color: #264653;
+            font-size: 20px
+        }
+        
+        .navbar ul li a:hover {
+            color: #264665;
+        }
+        
+        .btn {
+            padding: 0.8rem 2.5rem;
+            position: absolute;
+            font-size: 2rem;
+            text-align: center;
+            display: inline-block;
+            cursor: pointer;
+            color: #162b34;
+            border: 2px solid #162b34;
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: 0.4s;
+            border-radius: 25px;
+            top: 8px;
+            right: 32px;
+            background: transparent;
+        }
+        
+        .btn:hover {
+            color: #f2e9e4;
+            background: #162b34;
+        }
+        
+        #teamName {
+            display: block;
+            position: absolute;
+            color: black;
+            bottom: 253px;
+            right: 27px;
+            top: -15vh;
+            list-style-type: none;
+            text-align: start;
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        #teamName ul li {
+            display: none;
+            list-style-type: none;
+        }
+        
+        #file-input {
+            position: absolute;
+            left: 2px;
+        }
+        
+        #video {
+            display: none;
+            position: absolute;
+            left: 2px;
+            top: 42px;
+            height: 42vh;
+            width: 24vw;
+        }
+        
+        #process-button {
+            position: absolute;
+            left: 199px;
+            background-color: transparent;
+            border: none;
+            top: -2px;
+            font-size: 20px;
+            color: #1effc5;
+        }
+        #show{
+            position: absolute;
+            left: 28%;
+            width: 8vw;
+            font-size: 19px;
+            height: 8vh;
+            top: -18px;
+            color: #ffdd3e;
+            background: transparent;
+        }
+        #csv {
+            position: absolute;
+            right: 2px;
+            font-size: 24px;
+            color: black;
+        }
+        
+        h2 {
+            display:none;
+            position: absolute;
+            left: 472px;
+            top: -5px;
+            font-size: 25px;
+            color: lightblue;
+        }
+        
+        #numbers {
+            display:none;
+            width: 100%;
+            overflow-x: auto;
+        }
+        
+        table {
+            position: absolute;
+            display: block;
+            left: 587px;
+            top: 21px;
+            font-size: 16px;
+            height: 59vh;
+            width: 14vw;
+            border-collapse: collapse;
+            color: #0ff6ff;
+            overflow-y: scroll;
+            cursor: pointer;
+        }
+        #numplat {
+            position: absolute;
+            top: -9px;
+            left: 589px;
+            display: inline-table;
+            width: 189px;
+            font-size: 21px;
+            height: 19px;
+            color: white;
+            background-color: transparent;
+        }
+        tr{
+            color:white;
+        }
+        th,
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        th {
+            position: sticky;
+            top: 0;
+            display: inline-table;
+            width: 189px;
+            background-color: transparent;
+        }
+        
+        #carImg{
+            position:absolute;
+            height:100px;
+            width:100px;
+        }
+        #carImg1{
+            position: absolute;
+            height: 40vh;
+            width: 54vw;
+            top: 44vh;
+            right: -39vw;
+            animation: slide2 4s -4s forwards infinite;
+        }
+        @keyframes slide2 {
+            0% {
+                transform: translate(-100vw);
+            }
+        
+            100% {
+                transform: translate(65vw);
+            }
+        }
+        #download{
+            width: 12vw;
+            height: 10vh;
+        }
+
+    </style>
+</head>
+<body>
+    <div class='main'>
+        <section class='section-container'>
+            <div id='up_section'>
+            <div class="navbar">
+                <img id='colLog' src="https://1.bp.blogspot.com/-IVhNk3oVZw4/YMoKcdxl8II/AAAAAAAAAvk/h5IGGFcgvuYrvYWPlnyO9oImlZrvjIomACLcBGAsYHQ/s1751/PIEMR-LOGO.png" alt="Example Image" height="70px" width="70px">
+                <a href="https://piemr.edu.in/" class="logo">Prestige Institute Of Engineering <span id='colName'> Management and Research</span></a>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="" class="active">Services</a></li>
+                    <li><a href="" class="active">About</a></li>
+                    <li><a href="" class="active">Contact Us</a></li>
+                </ul>
+                <button class="btn">Member</button>
+            </div>
+
+                <h1>Moving Vehicle Number Plate Detection</h1>
+        </div>
+            <div class="container mt-5">
+     <div class="centered">
+       <div id='teamName'>
+        <ul>
+            <li id='pg'>Pukhraj Garasiya</li>
+            <li id='rk'>Rohit Kumar</li>
+            <li id='ds'>Deepak Singh</li>
+        </ul>
+    </div>
+    <div class="container">
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="file-input" accept="video/mp4">
+            <button type="submit" class="button" id="process-button">Process Video</button>
+        </form>
+        <img id='show' src='https://cdn.pixabay.com/photo/2017/07/13/18/43/heart-2501404_1280.png'>
+            <div id="videos">
+            <video id="video" controls></video>
+            </div>
+        <a href="{{ download_link }}" id='csv'>
+            <img id='download' src="https://cdn.pixabay.com/photo/2020/10/14/12/12/download-5654198_1280.png">
+        </a>
+        <div id='numbers'>
+            <div id='numplat' >Number Plate</div>
+        <table border="1">
+          <th>
+            <tr>
+            </tr>
+          </th>
+            <tbody>
+                {% for plate in data %}
+                <tr>
+                    <td>{{ plate }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div id='carImg'>
+        <img id='carImg1' src="https://purepng.com/public/uploads/large/purepng.com-renaultrenaultfrenchautomobilerenault-cars-and-vansrenaul-trucks-1701527597300trp4x.png" alt='error'>
+    </div>
+</div>
+</div>
+    <script>
+        document.querySelector('.btn').addEventListener('click', function() {
+            document.querySelector('.logo').style.animation = 'none';
+            document.getElementById('teamName').style.color = 'black';
+            var listItems = document.querySelectorAll('#teamName ul li');
+            listItems.forEach(function(item) {
+                item.style.display = 'block';
+            });
+        });
+        const fileInput = document.getElementById('file-input');
+        const video = document.getElementById('video');
+        
+        fileInput.addEventListener('change', function() {
+            const file = fileInput.files[0];
+            if (file) {
+                video.src = URL.createObjectURL(file);
+                video.style.display = 'block';
+            }
+        });
+        document.querySelector('#process-button').addEventListener('click', function(){
+            document.querySelector('#video').style.display='block';
+        })
+        document.querySelector('#process-button').addEventListener('click', function(){
+            document.querySelector('#carImg1').style.animation = 'none';
+            document.querySelector('#carImg1').style.top = '23vh';
+        })
+        document.querySelector('#carImg1').addEventListener('click',function(){
+            document.querySelector('#carImg1').style.display='none';
+        })
+        let count=0;
+        document.querySelector('#show').addEventListener('click',function(){
+                document.querySelector('#numbers').style.display='block';
+                document.querySelector('table').style.display='black';
+        })
+    </script>
+</body>
+</html>
